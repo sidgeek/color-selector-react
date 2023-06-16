@@ -6,7 +6,7 @@ import type { IColors, IRect, IRgba } from './interface';
  * @returns
  */
 export const loadImage = (base64: string) => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const img = new Image();
     img.src = base64;
     img.onload = () => resolve(img);
@@ -231,9 +231,14 @@ export function drawPipetteCanvas(colors: IColors, size: number) {
  * @param param0
  * @returns
  */
-export function getCanvas({ width = 0, height = 0, scale = 1, attrs = {} as Record<string, any> }) {
+export function getCanvas({
+  width = 0,
+  height = 0,
+  scale = 1,
+  attrs = {} as Record<string, any>,
+}) {
   const canvas: any = document.createElement('canvas');
-  Object.keys(attrs).forEach((key) => {
+  Object.keys(attrs).forEach(key => {
     const value = attrs[key];
     canvas.setAttribute(key, value);
   });
@@ -252,7 +257,7 @@ export function getCanvas({ width = 0, height = 0, scale = 1, attrs = {} as Reco
  * @param scale
  * @returns
  */
-const getImageColor = (data: any[], rect: IRect, scale: number = 1) => {
+const getImageColor = (data: any[], rect: IRect, scale = 1) => {
   const colors: any[][] = [];
   const { width, height } = rect;
   for (let row = 0; row < height; row += 1) {
@@ -280,10 +285,15 @@ const getImageColor = (data: any[], rect: IRect, scale: number = 1) => {
  * @param scale
  * @returns
  */
-export const getCanvasRectColor = (ctx: any, rect: IRect, scale: number = 1) => {
+export const getCanvasRectColor = (ctx: any, rect: IRect, scale = 1) => {
   const { x, y, width, height } = rect;
   // console.log(x, y, width, height);
-  const image = ctx.getImageData(x * scale, y * scale, width * scale, height * scale);
+  const image = ctx.getImageData(
+    x * scale,
+    y * scale,
+    width * scale,
+    height * scale,
+  );
   const { data } = image;
   const colors = getImageColor(data, rect, scale);
   return colors;
